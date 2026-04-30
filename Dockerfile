@@ -1,23 +1,15 @@
-FROM python:3.11-slim AS base
+# Build context: monorepo root (docker build -f tools/payments-mcp/Dockerfile .)
+# After Phase 5 carve-out, build context is the MCP's own repo root.
+ARG BASE_TAG=3.11-sdk0.4.0
+FROM ghcr.io/narisun/ai-python-base:${BASE_TAG}
 
 WORKDIR /app
-
-RUN apt-get update && apt-get install -y --no-install-recommends curl \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY platform-sdk/ /platform-sdk/
-RUN pip install --no-cache-dir /platform-sdk/
 
 COPY tools/payments-mcp/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY tools/payments-mcp/src/ /app/src/
-# Shared MCP utilities (AgentContextMiddleware, get_agent_context)
-COPY tools/shared/ /app/tools_shared/
 
-RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
 USER appuser
-
 EXPOSE 8082
-
 CMD ["python", "-m", "src.server"]

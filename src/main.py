@@ -36,7 +36,7 @@ mcp = FastMCP(
 # FastMCP (1.x) has no _app attribute at module load time — the Starlette app
 # is created lazily by sse_app() when the server starts.  We patch sse_app()
 # so our middleware is added to the Starlette app before uvicorn receives it.
-from tools_shared.mcp_auth import AgentContextMiddleware  # noqa: E402
+from platform_sdk.mcp_auth import AgentContextMiddleware  # noqa: E402
 
 if TRANSPORT == "sse":
     _orig_sse_app = mcp.sse_app

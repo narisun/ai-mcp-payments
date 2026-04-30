@@ -14,7 +14,7 @@ from platform_sdk.auth import AgentContext
 from platform_sdk.base import McpService
 from platform_sdk.cache import make_cache_key
 from platform_sdk.protocols import Authorizer, CacheStore
-from tools_shared.mcp_auth import get_agent_context, verify_auth_context
+from platform_sdk.mcp_auth import get_agent_context, verify_auth_context
 
 from .payments_service import PaymentsService
 

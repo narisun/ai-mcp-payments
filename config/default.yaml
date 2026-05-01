@@ -16,11 +16,13 @@ redis_host: redis
 redis_port: 6379
 redis_password: ${REDIS_PASSWORD}
 
-# PostgreSQL database
-db_host: postgres
+# PostgreSQL database — connects to the shared pgvector container.
+# Service-specific schema isolation is handled by table prefixes,
+# not by separate Postgres databases or roles.
+db_host: pgvector
 db_port: 5432
-db_name: bankdw
-db_user: payments_user
+db_name: ai_memory
+db_user: admin
 db_pass: ${DB_PASS}
 
 registry_url: http://ai-registry:8090

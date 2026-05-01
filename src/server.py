@@ -1,10 +1,10 @@
-"""Backward-compatible entry point for payments-mcp server.
+"""Backwards-compat entrypoint shim. Delegates to src.main.
 
-This module maintains compatibility with existing imports and entry points.
-The actual implementation has been refactored to follow the enterprise OOP pattern
-and is now split across PaymentsService, PaymentsMcpService, and main.
+Uses service.run_with_registration so the MCP registers with the platform
+registry at process startup (FastMCP's SSE lifespan only runs per-connection,
+which is too late). See SDK 0.5.1 for details.
 """
-from .main import TRANSPORT, mcp
+from .main import TRANSPORT, mcp, service
 
 if __name__ == "__main__":
-    mcp.run(transport=TRANSPORT)
+    service.run_with_registration(mcp, TRANSPORT)

@@ -1,6 +1,6 @@
 [project]
 name = "ai-mcp-payments"
-version = "0.6.0"
+version = "0.6.1"
 description = "Enterprise AI Platform — Payments MCP (transactions analytics)"
 requires-python = ">=3.11"
 dependencies = [
